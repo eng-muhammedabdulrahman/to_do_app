@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:to_do_app/core/commons/commons.dart';
 import 'package:to_do_app/core/database/cache_helper.dart';
 import 'package:to_do_app/core/services/service_locator.dart';
 import 'package:to_do_app/core/utils/app_colors.dart';
 import 'package:to_do_app/core/utils/app_strings.dart';
+import 'package:to_do_app/core/widgets/custom_button.dart';
+import 'package:to_do_app/core/widgets/custom_text_button.dart';
 import 'package:to_do_app/features/auth/data/model/on_boarding_model.dart';
 import 'package:to_do_app/features/task/presentation/screens/home_screen.dart';
 
@@ -33,18 +36,13 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   index != 2
                       ? Align(
                           alignment: Alignment.centerLeft,
-                          child: TextButton(
-                            child: Text(AppStrings.skip,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .displaySmall!
-                                    .copyWith(
-                                        color:
-                                            AppColors.white.withOpacity(.44))),
-                            onPressed: () {
-                              controller.jumpToPage(2);
-                            },
-                          ),
+                          child:
+                              // reusable code
+                              CustomTextButton(
+                                  text: AppStrings.skip,
+                                  onPressed: () {
+                                    controller.jumpToPage(2);
+                                  }),
                         )
                       : const SizedBox(
                           height: 54,
@@ -86,40 +84,32 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     children: [
                       // back button
                       index != 0
-                          ? TextButton(
-                              child: Text(AppStrings.back,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .displaySmall!
-                                      .copyWith(
-                                          color: AppColors.white
-                                              .withOpacity(.44))),
+                          ?
+                          // reusable code
+                          CustomTextButton(
+                              text: AppStrings.back,
                               onPressed: () {
                                 controller.previousPage(
-                                    duration:
-                                        const Duration(milliseconds: 1000),
-                                    curve: Curves.fastLinearToSlowEaseIn);
-                              },
-                            )
+                                  duration: const Duration(milliseconds: 1000),
+                                  curve: Curves.fastLinearToSlowEaseIn,
+                                );
+                              })
                           : Container(),
                       // spacer
                       const Spacer(),
                       // next button
                       index != 2
-                          ? ElevatedButton(
+                          ? CustomButton(
+                              text: AppStrings.next,
                               onPressed: () {
                                 controller.nextPage(
                                     duration:
                                         const Duration(milliseconds: 1000),
                                     curve: Curves.fastLinearToSlowEaseIn);
                               },
-                              style:
-                                  Theme.of(context).elevatedButtonTheme.style,
-                              child: const Text(
-                                AppStrings.next,
-                              ),
                             )
-                          : ElevatedButton(
+                          : CustomButton(
+                              text: AppStrings.getStarted,
                               onPressed: () async {
                                 // navigate to home screen
                                 await sl<CacheHelper>()
@@ -128,20 +118,12 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                                         value: true)
                                     .then((value) {
                                   print('onBoardingKey');
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (_) => const HomeScreen()),
-                                  );
+                                  navigate(
+                                      context: context, screen: const HomeScreen());
                                 }).catchError((e) {
                                   print(e.toString());
                                 });
                               },
-                              style:
-                                  Theme.of(context).elevatedButtonTheme.style,
-                              child: const Text(
-                                AppStrings.getStarted,
-                              ),
                             ),
                     ],
                   )
