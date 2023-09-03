@@ -23,6 +23,12 @@ ThemeData getAppTheme() {
             fontWeight: FontWeight.normal,
             fontSize: 16,
           ),
+          labelLarge: GoogleFonts.lato(
+            color: AppColors.white,
+            fontWeight: FontWeight.w700,
+            fontSize: 24,
+            fontStyle: FontStyle.normal
+          ),
           displaySmall: GoogleFonts.lato(
             color: AppColors.white,
             fontWeight: FontWeight.w400,

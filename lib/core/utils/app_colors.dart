@@ -13,4 +13,5 @@ class AppColors {
   static const Color grey = Color(0xff979797);
   static const Color deepGrey = Color(0xff424242);
   static const Color selectDate = Color(0xff242969);
+  static const Color line = Color(0xffC4C4C4);
 }

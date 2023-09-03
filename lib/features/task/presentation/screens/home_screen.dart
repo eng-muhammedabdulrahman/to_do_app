@@ -12,7 +12,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.only(left: 24, top: 44),
+        padding: const EdgeInsets.all(24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -33,6 +33,7 @@ class HomeScreen extends StatelessWidget {
               height: 14,
             ),
             DatePicker(
+              height: 94,
               DateTime.now(),
               initialSelectedDate: DateTime.now(),
               selectionColor: AppColors.selectDate,
@@ -50,11 +51,13 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(
               height: 50,
             ),
-            Center(
-              child: 
-              // no tasks
-              noTasksWidget(context),
-            ),
+            // Center(
+            //   child:
+            //   // no tasks
+            //   // noTasksWidget(context),
+            // ),
+            const TaskComponent(),
+            const TaskComponent(),
           ],
         ),
       ),
@@ -68,22 +71,91 @@ class HomeScreen extends StatelessWidget {
   }
 
   Column noTasksWidget(BuildContext context) {
-    return Column(
-              children: [
-              Image.asset(
-                AppAsseets.noTasks,
-              ),
+    return Column(children: [
+      Image.asset(
+        AppAsseets.noTasks,
+      ),
+      Text(
+        AppStrings.noTaskTitle,
+        style:
+            Theme.of(context).textTheme.displayMedium!.copyWith(fontSize: 20),
+      ),
+      Text(
+        AppStrings.noTaskSubTitle,
+        style: Theme.of(context).textTheme.displayMedium,
+      ),
+    ]);
+  }
+}
+
+class TaskComponent extends StatelessWidget {
+  const TaskComponent({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 128,
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: AppColors.red,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      margin: const EdgeInsets.only(bottom: 16),
+      child: Row(children: [
+        // column
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // text
               Text(
-                AppStrings.noTaskTitle,
-                style: Theme.of(context)
-                    .textTheme
-                    .displayMedium!
-                    .copyWith(fontSize: 20),
+                'Task 1',
+                style: Theme.of(context).textTheme.labelLarge,
               ),
+              const SizedBox(height: 8),
+              // row
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const Icon(
+                    Icons.timer_sharp,
+                    color: AppColors.white,
+                  ),
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  Text(
+                    '09:33 PM - 09:48 PM',
+                    style: Theme.of(context).textTheme.displayMedium,
+                  )
+                ],
+              ),
+              const SizedBox(height: 8),
+              // text
               Text(
-                AppStrings.noTaskSubTitle,
-                style: Theme.of(context).textTheme.displayMedium,
+                'Learn Dart',
+                style: Theme.of(context).textTheme.labelLarge,
               ),
-            ]);
+            ],
+          ),
+        ),
+        // divider
+        const VerticalDivider(
+          color: AppColors.line,
+          thickness: 1,
+          indent: 20,
+          endIndent: 20,
+        ),
+        // text
+        RotatedBox(
+            quarterTurns: 3,
+            child: Text(
+              AppStrings.toDo,
+              style: Theme.of(context).textTheme.displayMedium,
+            ))
+      ]),
+    );
   }
 }
