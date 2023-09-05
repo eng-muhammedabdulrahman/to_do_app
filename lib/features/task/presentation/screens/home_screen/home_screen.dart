@@ -1,10 +1,12 @@
 import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:to_do_app/core/commons/commons.dart';
 import 'package:to_do_app/core/utils/app_assets.dart';
 import 'package:to_do_app/core/utils/app_colors.dart';
 import 'package:to_do_app/core/utils/app_strings.dart';
 import 'package:to_do_app/core/widgets/custom_button.dart';
+import 'package:to_do_app/features/task/presentation/screens/add_task_screen/add_task_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -66,8 +68,7 @@ class HomeScreen extends StatelessWidget {
                           padding: const EdgeInsets.all(24),
                           height: 240,
                           color: AppColors.deepGrey,
-                          child: Column(
-                            children: [
+                          child: Column(children: [
                             // Task Completed
                             SizedBox(
                               height: 48,
@@ -78,7 +79,9 @@ class HomeScreen extends StatelessWidget {
                               ),
                             ),
                             // deleteTask
-                            const SizedBox(height: 24,),
+                            const SizedBox(
+                              height: 24,
+                            ),
                             SizedBox(
                               height: 48,
                               width: double.infinity,
@@ -89,7 +92,9 @@ class HomeScreen extends StatelessWidget {
                               ),
                             ),
                             // Task cancel
-                            const SizedBox(height: 24,),
+                            const SizedBox(
+                              height: 24,
+                            ),
                             SizedBox(
                               height: 48,
                               width: double.infinity,
@@ -108,7 +113,9 @@ class HomeScreen extends StatelessWidget {
       ),
       // FAB floatingActionButton
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          navigate(context: context, screen: AddTaskScreen());
+        },
         backgroundColor: AppColors.primary,
         child: const Icon(Icons.add),
       ),
