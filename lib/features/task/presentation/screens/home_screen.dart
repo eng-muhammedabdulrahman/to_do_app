@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:to_do_app/core/utils/app_assets.dart';
 import 'package:to_do_app/core/utils/app_colors.dart';
 import 'package:to_do_app/core/utils/app_strings.dart';
+import 'package:to_do_app/core/widgets/custom_button.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -56,8 +57,52 @@ class HomeScreen extends StatelessWidget {
             //   // no tasks
             //   // noTasksWidget(context),
             // ),
-            const TaskComponent(),
-            const TaskComponent(),
+            InkWell(
+                onTap: () {
+                  showModalBottomSheet(
+                      context: context,
+                      builder: (context) {
+                        return Container(
+                          padding: const EdgeInsets.all(24),
+                          height: 240,
+                          color: AppColors.deepGrey,
+                          child: Column(
+                            children: [
+                            // Task Completed
+                            SizedBox(
+                              height: 48,
+                              width: double.infinity,
+                              child: CustomButton(
+                                text: AppStrings.taskCompleted,
+                                onPressed: () {},
+                              ),
+                            ),
+                            // deleteTask
+                            const SizedBox(height: 24,),
+                            SizedBox(
+                              height: 48,
+                              width: double.infinity,
+                              child: CustomButton(
+                                text: AppStrings.deleteTask,
+                                backgroundColor: AppColors.red,
+                                onPressed: () {},
+                              ),
+                            ),
+                            // Task cancel
+                            const SizedBox(height: 24,),
+                            SizedBox(
+                              height: 48,
+                              width: double.infinity,
+                              child: CustomButton(
+                                text: AppStrings.cancel,
+                                onPressed: () {},
+                              ),
+                            ),
+                          ]),
+                        );
+                      });
+                },
+                child: const TaskComponent()),
           ],
         ),
       ),
