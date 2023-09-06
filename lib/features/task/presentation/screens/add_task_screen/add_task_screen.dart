@@ -17,6 +17,9 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
   TextEditingController noteController = TextEditingController();
 
   DateTime currentDate = DateTime.now();
+  String startTime = DateFormat('hh:mm a').format(DateTime.now());
+  String endTime = DateFormat('hh:mm a')
+      .format(DateTime.now().add(const Duration(minutes: 45)));
 
   @override
   Widget build(BuildContext context) {
@@ -41,20 +44,20 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
         child: Form(
           child: Column(
             children: [
-              // Title
+              //! Title
               AddTaskComponent(
                 controller: titleController,
                 title: AppStrings.title,
                 hintText: AppStrings.titleHint,
               ),
-              // Note
+              //! Note
               const SizedBox(height: 24),
               AddTaskComponent(
                 controller: noteController,
                 title: AppStrings.note,
                 hintText: AppStrings.noteHint,
               ),
-              // Date
+              //! Date
               const SizedBox(height: 24),
               AddTaskComponent(
                 title: AppStrings.date,
@@ -68,13 +71,80 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                       lastDate: DateTime(2030),
                     );
                     setState(() {
-                      currentDate = pickedDate!;
+                      if (pickedDate != null) {
+                        currentDate = pickedDate;
+                      } else {
+                        print('pickedDate == null');
+                      }
                     });
                   },
                   icon: const Icon(Icons.calendar_month_rounded),
                   color: AppColors.white,
                 ),
                 readOnly: true,
+              ),
+              const SizedBox(height: 24),
+              //! Start - End Time
+              Row(
+                children: [
+                  // Start
+                  Expanded(
+                    child: AddTaskComponent(
+                      title: AppStrings.startTime,
+                      hintText: startTime,
+                      suffixIcon: IconButton(
+                        onPressed: () async {
+                          TimeOfDay? pickedStartTime = await showTimePicker(
+                            context: context,
+                            initialTime: TimeOfDay.fromDateTime(
+                              DateTime.now(),
+                            ),
+                          );
+                          if (pickedStartTime != null) {
+                            setState(
+                              () {
+                                startTime = pickedStartTime.format(context);
+                              },
+                            );
+                          } else {
+                            print('pickedStartTime == null');
+                          }
+                        },
+                        icon: const Icon(Icons.timer_outlined),
+                        color: AppColors.white,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 27),
+                  // End
+                  Expanded(
+                    child: AddTaskComponent(
+                      title: AppStrings.endTime,
+                      hintText: endTime,
+                      suffixIcon: IconButton(
+                        onPressed: () async {
+                          TimeOfDay? pickedStartTime = await showTimePicker(
+                            context: context,
+                            initialTime: TimeOfDay.fromDateTime(
+                              DateTime.now(),
+                            ),
+                          );
+                          if (pickedStartTime != null) {
+                            setState(
+                              () {
+                                startTime = pickedStartTime.format(context);
+                              },
+                            );
+                          } else {
+                            print('pickedStartTime == null');
+                          }
+                        },
+                        icon: const Icon(Icons.timer_outlined),
+                        color: AppColors.white,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

@@ -13,111 +13,113 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // date now
-            Text(
-              DateFormat.yMMMMd().format(DateTime.now()),
-              style: Theme.of(context).textTheme.displayLarge,
-            ),
-            const SizedBox(
-              height: 12,
-            ),
-            // Today
-            Text(
-              AppStrings.toDay,
-              style: Theme.of(context).textTheme.displayLarge,
-            ),
-            const SizedBox(
-              height: 14,
-            ),
-            DatePicker(
-              height: 94,
-              DateTime.now(),
-              initialSelectedDate: DateTime.now(),
-              selectionColor: AppColors.selectDate,
-              selectedTextColor: AppColors.white,
-              dateTextStyle: Theme.of(context).textTheme.displayMedium!,
-              dayTextStyle: Theme.of(context).textTheme.displayMedium!,
-              monthTextStyle: Theme.of(context).textTheme.displayMedium!,
-              onDateChange: (date) {
-                // New date selected
-                //   setState(() {
-                //     _selectedValue = date;
-                //   });
-              },
-            ),
-            const SizedBox(
-              height: 50,
-            ),
-            // Center(
-            //   child:
-            //   // no tasks
-            //   // noTasksWidget(context),
-            // ),
-            InkWell(
-                onTap: () {
-                  showModalBottomSheet(
-                      context: context,
-                      builder: (context) {
-                        return Container(
-                          padding: const EdgeInsets.all(24),
-                          height: 240,
-                          color: AppColors.deepGrey,
-                          child: Column(children: [
-                            // Task Completed
-                            SizedBox(
-                              height: 48,
-                              width: double.infinity,
-                              child: CustomButton(
-                                text: AppStrings.taskCompleted,
-                                onPressed: () {},
-                              ),
-                            ),
-                            // deleteTask
-                            const SizedBox(
-                              height: 24,
-                            ),
-                            SizedBox(
-                              height: 48,
-                              width: double.infinity,
-                              child: CustomButton(
-                                text: AppStrings.deleteTask,
-                                backgroundColor: AppColors.red,
-                                onPressed: () {},
-                              ),
-                            ),
-                            // Task cancel
-                            const SizedBox(
-                              height: 24,
-                            ),
-                            SizedBox(
-                              height: 48,
-                              width: double.infinity,
-                              child: CustomButton(
-                                text: AppStrings.cancel,
-                                onPressed: () {},
-                              ),
-                            ),
-                          ]),
-                        );
-                      });
+    return SafeArea(
+      child: Scaffold(
+        body: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // date now
+              Text(
+                DateFormat.yMMMMd().format(DateTime.now()),
+                style: Theme.of(context).textTheme.displayLarge,
+              ),
+              const SizedBox(
+                height: 12,
+              ),
+              // Today
+              Text(
+                AppStrings.toDay,
+                style: Theme.of(context).textTheme.displayLarge,
+              ),
+              const SizedBox(
+                height: 14,
+              ),
+              DatePicker(
+                height: 94,
+                DateTime.now(),
+                initialSelectedDate: DateTime.now(),
+                selectionColor: AppColors.selectDate,
+                selectedTextColor: AppColors.white,
+                dateTextStyle: Theme.of(context).textTheme.displayMedium!,
+                dayTextStyle: Theme.of(context).textTheme.displayMedium!,
+                monthTextStyle: Theme.of(context).textTheme.displayMedium!,
+                onDateChange: (date) {
+                  // New date selected
+                  //   setState(() {
+                  //     _selectedValue = date;
+                  //   });
                 },
-                child: const TaskComponent()),
-          ],
+              ),
+              const SizedBox(
+                height: 50,
+              ),
+              // Center(
+              //   child:
+              //   // no tasks
+              //   // noTasksWidget(context),
+              // ),
+              InkWell(
+                  onTap: () {
+                    showModalBottomSheet(
+                        context: context,
+                        builder: (context) {
+                          return Container(
+                            padding: const EdgeInsets.all(24),
+                            height: 240,
+                            color: AppColors.deepGrey,
+                            child: Column(children: [
+                              // Task Completed
+                              SizedBox(
+                                height: 48,
+                                width: double.infinity,
+                                child: CustomButton(
+                                  text: AppStrings.taskCompleted,
+                                  onPressed: () {},
+                                ),
+                              ),
+                              // deleteTask
+                              const SizedBox(
+                                height: 24,
+                              ),
+                              SizedBox(
+                                height: 48,
+                                width: double.infinity,
+                                child: CustomButton(
+                                  text: AppStrings.deleteTask,
+                                  backgroundColor: AppColors.red,
+                                  onPressed: () {},
+                                ),
+                              ),
+                              // Task cancel
+                              const SizedBox(
+                                height: 24,
+                              ),
+                              SizedBox(
+                                height: 48,
+                                width: double.infinity,
+                                child: CustomButton(
+                                  text: AppStrings.cancel,
+                                  onPressed: () {},
+                                ),
+                              ),
+                            ]),
+                          );
+                        });
+                  },
+                  child: const TaskComponent()),
+            ],
+          ),
         ),
-      ),
-      // FAB floatingActionButton
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          navigate(context: context, screen: AddTaskScreen());
-        },
-        backgroundColor: AppColors.primary,
-        child: const Icon(Icons.add),
+        // FAB floatingActionButton
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            navigate(context: context, screen: AddTaskScreen());
+          },
+          backgroundColor: AppColors.primary,
+          child: const Icon(Icons.add),
+        ),
       ),
     );
   }
