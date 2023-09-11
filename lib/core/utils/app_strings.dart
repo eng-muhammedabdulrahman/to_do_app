@@ -3,6 +3,7 @@ class AppStrings {
   static const String skip = 'SKIP';
   static const String next = 'NEXT';
   static const String back = 'BACK';
+  static const String color = 'Color';
   static const String getStarted = 'Get Started';
   static const String onBoardingTitleOne = 'Manage your tasks';
   static const String onBoardingSubTitleOne =
