@@ -1,11 +1,14 @@
 import 'package:date_picker_timeline/date_picker_widget.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:to_do_app/core/commons/commons.dart';
 import 'package:to_do_app/core/utils/app_assets.dart';
 import 'package:to_do_app/core/utils/app_colors.dart';
 import 'package:to_do_app/core/utils/app_strings.dart';
 import 'package:to_do_app/core/widgets/custom_button.dart';
+import 'package:to_do_app/features/task/data/model/task_model.dart';
 import 'package:to_do_app/features/task/presentation/screens/add_task_screen/add_task_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -16,7 +19,7 @@ class HomeScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         body: Padding(
-          padding: const EdgeInsets.all(24),
+          padding: EdgeInsets.all(24.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -25,19 +28,19 @@ class HomeScreen extends StatelessWidget {
                 DateFormat.yMMMMd().format(DateTime.now()),
                 style: Theme.of(context).textTheme.displayLarge,
               ),
-              const SizedBox(
-                height: 12,
+              SizedBox(
+                height: 12.h,
               ),
               // Today
               Text(
                 AppStrings.toDay,
                 style: Theme.of(context).textTheme.displayLarge,
               ),
-              const SizedBox(
-                height: 14,
+              SizedBox(
+                height: 14.h,
               ),
               DatePicker(
-                height: 94,
+                height: 94.h,
                 DateTime.now(),
                 initialSelectedDate: DateTime.now(),
                 selectionColor: AppColors.selectDate,
@@ -52,63 +55,69 @@ class HomeScreen extends StatelessWidget {
                   //   });
                 },
               ),
-              const SizedBox(
-                height: 50,
+              SizedBox(
+                height: 50.h,
               ),
-              // Center(
-              //   child:
-              //   // no tasks
-              //   // noTasksWidget(context),
-              // ),
-              InkWell(
-                  onTap: () {
-                    showModalBottomSheet(
-                        context: context,
-                        builder: (context) {
-                          return Container(
-                            padding: const EdgeInsets.all(24),
-                            height: 240,
-                            color: AppColors.deepGrey,
-                            child: Column(children: [
-                              // Task Completed
-                              SizedBox(
-                                height: 48,
-                                width: double.infinity,
-                                child: CustomButton(
-                                  text: AppStrings.taskCompleted,
-                                  onPressed: () {},
-                                ),
-                              ),
-                              // deleteTask
-                              const SizedBox(
-                                height: 24,
-                              ),
-                              SizedBox(
-                                height: 48,
-                                width: double.infinity,
-                                child: CustomButton(
-                                  text: AppStrings.deleteTask,
-                                  backgroundColor: AppColors.red,
-                                  onPressed: () {},
-                                ),
-                              ),
-                              // Task cancel
-                              const SizedBox(
-                                height: 24,
-                              ),
-                              SizedBox(
-                                height: 48,
-                                width: double.infinity,
-                                child: CustomButton(
-                                  text: AppStrings.cancel,
-                                  onPressed: () {},
-                                ),
-                              ),
-                            ]),
-                          );
-                        });
-                  },
-                  child: const TaskComponent()),
+              // no tasks
+              TaskModel.tasksList.isEmpty
+                  ? noTasksWidget(context)
+                  : Expanded(
+                      child: ListView.builder(
+                          itemCount: TaskModel.tasksList.length,
+                          itemBuilder: (context, index) {
+                            return InkWell(
+                                onTap: () {
+                                  showModalBottomSheet(
+                                      context: context,
+                                      builder: (context) {
+                                        return Container(
+                                          padding: const EdgeInsets.all(24),
+                                          height: 240.h,
+                                          color: AppColors.deepGrey,
+                                          child: Column(children: [
+                                            // Task Completed
+                                            SizedBox(
+                                              height: 48.h,
+                                              width: double.infinity,
+                                              child: CustomButton(
+                                                text: AppStrings.taskCompleted,
+                                                onPressed: () {},
+                                              ),
+                                            ),
+                                            // deleteTask
+                                            SizedBox(
+                                              height: 24.h,
+                                            ),
+                                            SizedBox(
+                                              height: 48.h,
+                                              width: double.infinity,
+                                              child: CustomButton(
+                                                text: AppStrings.deleteTask,
+                                                backgroundColor: AppColors.red,
+                                                onPressed: () {},
+                                              ),
+                                            ),
+                                            // Task cancel
+                                            SizedBox(
+                                              height: 24.h,
+                                            ),
+                                            SizedBox(
+                                              height: 48.h,
+                                              width: double.infinity,
+                                              child: CustomButton(
+                                                text: AppStrings.cancel,
+                                                onPressed: () {},
+                                              ),
+                                            ),
+                                          ]),
+                                        );
+                                      });
+                                },
+                                child: TaskComponent(
+                                  taskModel: TaskModel.tasksList[index],
+                                ));
+                          }),
+                    )
             ],
           ),
         ),
@@ -131,8 +140,10 @@ class HomeScreen extends StatelessWidget {
       ),
       Text(
         AppStrings.noTaskTitle,
-        style:
-            Theme.of(context).textTheme.displayMedium!.copyWith(fontSize: 20),
+        style: Theme.of(context)
+            .textTheme
+            .displayMedium!
+            .copyWith(fontSize: 20.sp),
       ),
       Text(
         AppStrings.noTaskSubTitle,
@@ -145,15 +156,35 @@ class HomeScreen extends StatelessWidget {
 class TaskComponent extends StatelessWidget {
   const TaskComponent({
     super.key,
+    required this.taskModel,
   });
+  final TaskModel taskModel;
+  Color getColor(index) {
+    switch (index) {
+      case 0:
+        return AppColors.red;
+      case 1:
+        return AppColors.green;
+      case 2:
+        return AppColors.blueGrey;
+      case 3:
+        return AppColors.blue;
+      case 4:
+        return AppColors.orange;
+      case 5:
+        return AppColors.purple;
+      default:
+        return AppColors.grey;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 128,
+      height: 128.h,
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: AppColors.red,
+        color: getColor(taskModel.color),
         borderRadius: BorderRadius.circular(16),
       ),
       margin: const EdgeInsets.only(bottom: 16),
@@ -163,12 +194,12 @@ class TaskComponent extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // text
+              // title
               Text(
-                'Task 1',
+                taskModel.title,
                 style: Theme.of(context).textTheme.labelLarge,
               ),
-              const SizedBox(height: 8),
+              SizedBox(height: 8.h),
               // row
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -177,19 +208,19 @@ class TaskComponent extends StatelessWidget {
                     Icons.timer_sharp,
                     color: AppColors.white,
                   ),
-                  const SizedBox(
-                    width: 8,
+                  SizedBox(
+                    width: 8.w,
                   ),
                   Text(
-                    '09:33 PM - 09:48 PM',
+                    '${taskModel.startTime} - ${taskModel.endTime}',
                     style: Theme.of(context).textTheme.displayMedium,
                   )
                 ],
               ),
-              const SizedBox(height: 8),
-              // text
+              SizedBox(height: 8.h),
+              // note
               Text(
-                'Learn Dart',
+                taskModel.note,
                 style: Theme.of(context).textTheme.labelLarge,
               ),
             ],
@@ -206,10 +237,16 @@ class TaskComponent extends StatelessWidget {
         RotatedBox(
             quarterTurns: 3,
             child: Text(
-              AppStrings.toDo,
+              taskModel.isCompleted ? AppStrings.completed : AppStrings.toDo,
               style: Theme.of(context).textTheme.displayMedium,
             ))
       ]),
     );
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<TaskModel>('taskModel', taskModel));
   }
 }
