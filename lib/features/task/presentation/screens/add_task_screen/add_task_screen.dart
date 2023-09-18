@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:to_do_app/core/commons/commons.dart';
 import 'package:to_do_app/core/utils/app_colors.dart';
 import 'package:to_do_app/core/utils/app_strings.dart';
 import 'package:to_do_app/core/widgets/custom_button.dart';
@@ -11,9 +12,7 @@ import 'package:to_do_app/features/task/presentation/cubit/task_cubit.dart';
 import 'package:to_do_app/features/task/presentation/cubit/task_state.dart';
 
 class AddTaskScreen extends StatelessWidget {
-  TextEditingController titleController = TextEditingController();
-
-  TextEditingController noteController = TextEditingController();
+  const AddTaskScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -33,28 +32,50 @@ class AddTaskScreen extends StatelessWidget {
           style: Theme.of(context).textTheme.displayLarge,
         ),
       ),
-      body: Form(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.all(24.h),
-            child: BlocBuilder<TaskCubit, TaskState>(
-              builder: (context, state) {
-                final cubit = BlocProvider.of<TaskCubit>(context);
-                return Column(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(24.h),
+          child: BlocConsumer<TaskCubit, TaskState>(
+            listener: (context, state) {
+              if (state is InsertTaskSuccessState) {
+                showToast(
+                    message: 'Added Successfully', state: ToastStates.success);
+                Navigator.pop(context);
+              }
+            },
+            builder: (context, state) {
+              final cubit = BlocProvider.of<TaskCubit>(context);
+              return Form(
+                key: BlocProvider.of<TaskCubit>(context).formKey,
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     //! Title
                     AddTaskComponent(
-                      controller: titleController,
+                      controller:
+                          BlocProvider.of<TaskCubit>(context).titleController,
                       title: AppStrings.title,
                       hintText: AppStrings.titleHint,
+                      validator: (val) {
+                        if (val!.isEmpty) {
+                          return AppStrings.titleErrorMsg;
+                        }
+                        return null;
+                      },
                     ),
                     //! Note
                     SizedBox(height: 24.h),
                     AddTaskComponent(
-                      controller: noteController,
+                      controller:
+                          BlocProvider.of<TaskCubit>(context).noteController,
                       title: AppStrings.note,
                       hintText: AppStrings.noteHint,
+                      validator: (val) {
+                        if (val!.isEmpty) {
+                          return AppStrings.noteErrorMsg;
+                        }
+                        return null;
+                      },
                     ),
                     //! Date
                     SizedBox(height: 24.h),
@@ -146,18 +167,30 @@ class AddTaskScreen extends StatelessWidget {
                     ),
                     //! add Task Button
                     SizedBox(height: 92.h),
-                    SizedBox(
-                      height: 48,
-                      width: double.infinity,
-                      child: CustomButton(
-                        text: AppStrings.createTask,
-                        onPressed: () {},
-                      ),
-                    )
+                    state is InsertTaskLoadingState
+                        ? const Center(
+                            child: CircularProgressIndicator(
+                                color: AppColors.primary))
+                        : SizedBox(
+                            height: 48,
+                            width: double.infinity,
+                            child: CustomButton(
+                              text: AppStrings.createTask,
+                              onPressed: () {
+                                if (BlocProvider.of<TaskCubit>(context)
+                                    .formKey
+                                    .currentState!
+                                    .validate()) {
+                                  BlocProvider.of<TaskCubit>(context)
+                                      .insertTask();
+                                }
+                              },
+                            ),
+                          )
                   ],
-                );
-              },
-            ),
+                ),
+              );
+            },
           ),
         ),
       ),

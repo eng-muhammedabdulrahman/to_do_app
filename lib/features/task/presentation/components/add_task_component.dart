@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:to_do_app/core/utils/app_colors.dart';
 
 class AddTaskComponent extends StatelessWidget {
   const AddTaskComponent({
@@ -8,12 +9,14 @@ class AddTaskComponent extends StatelessWidget {
     this.controller,
     this.suffixIcon,
     this.readOnly = false,
+    this.validator,
   });
   final String title;
   final String hintText;
   final TextEditingController? controller;
   final IconButton? suffixIcon;
   final bool readOnly;
+  final String? Function(String?)? validator;
   @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -23,8 +26,10 @@ class AddTaskComponent extends StatelessWidget {
       ),
       const SizedBox(height: 8),
       TextFormField(
+        style: const TextStyle(color: AppColors.white),
         readOnly: readOnly,
         controller: controller,
+        validator: validator,
         decoration: InputDecoration(
           // hint
           hintText: hintText,
