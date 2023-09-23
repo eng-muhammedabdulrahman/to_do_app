@@ -22,7 +22,7 @@ class SqfliteHelper {
           CREATE TABLE Tasks(
           id INTEGER PRIMARY KEY AUTOINCREMENT,
           title TEXT,
-          notes TEXT,
+          note TEXT,
           date TEXT,
           startTime TEXT,
           endTime TEXT,
@@ -48,11 +48,17 @@ class SqfliteHelper {
   Future<int> insertToDB(TaskModel model) async {
     return await db.rawInsert('''
       INSERT INTO Tasks(
-      title, note, data, startTime, endTime, color, isCompleted,)
-      VALUES
-      (${model.title},${model.note},${model.data},${model.startTime},
-      ${model.endTime},${model.color},${model.isCompleted},)
-    ''');
+      title, note, date, startTime, endTime, color, isCompleted)
+      VALUES(
+        '${model.title}',
+        '${model.note}',
+        '${model.date}',
+        '${model.startTime}',
+        '${model.endTime}',
+        '${model.color}',
+        '${model.isCompleted}'
+        )
+        ''');
   }
 
   //! Update
