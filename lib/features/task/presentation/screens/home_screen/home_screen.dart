@@ -83,15 +83,33 @@ class HomeScreen extends StatelessWidget {
                                               color: AppColors.deepGrey,
                                               child: Column(children: [
                                                 // Task Completed
-                                                SizedBox(
-                                                  height: 48.h,
-                                                  width: double.infinity,
-                                                  child: CustomButton(
-                                                    text: AppStrings
-                                                        .taskCompleted,
-                                                    onPressed: () {},
-                                                  ),
-                                                ),
+                                                BlocProvider.of<TaskCubit>(
+                                                                context)
+                                                            .tasksList[index]
+                                                            .isCompleted ==
+                                                        1
+                                                    ? Container()
+                                                    : SizedBox(
+                                                        height: 48.h,
+                                                        width: double.infinity,
+                                                        child: CustomButton(
+                                                          text: AppStrings
+                                                              .taskCompleted,
+                                                          onPressed: () {
+                                                            BlocProvider.of<
+                                                                        TaskCubit>(
+                                                                    context)
+                                                                .updateTask(BlocProvider.of<
+                                                                            TaskCubit>(
+                                                                        context)
+                                                                    .tasksList[
+                                                                        index]
+                                                                    .id);
+                                                            Navigator.pop(
+                                                                context);
+                                                          },
+                                                        ),
+                                                      ),
                                                 // deleteTask
                                                 SizedBox(
                                                   height: 24.h,
@@ -115,7 +133,9 @@ class HomeScreen extends StatelessWidget {
                                                   width: double.infinity,
                                                   child: CustomButton(
                                                     text: AppStrings.cancel,
-                                                    onPressed: () {},
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
                                                   ),
                                                 ),
                                               ]),
