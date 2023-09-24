@@ -49,3 +49,7 @@ final class DeleteTaskErrorState extends TaskState {}
 final class GetSelectedDateSuccessState extends TaskState {}
 
 final class GetSelectedDateLoadingState extends TaskState {}
+
+final class ChangeThemeState extends TaskState {}
+
+final class GetThemeState extends TaskState {}

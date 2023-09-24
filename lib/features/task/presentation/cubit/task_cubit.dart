@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:to_do_app/core/database/cache_helper.dart';
 import 'package:to_do_app/core/database/sqflite_helper/sqflite_helper.dart';
 import 'package:to_do_app/core/services/service_locator.dart';
 import 'package:to_do_app/core/utils/app_colors.dart';
@@ -148,8 +149,8 @@ class TaskCubit extends Cubit<TaskState> {
       tasksList = value
           .map((e) => TaskModel.fromJson(e))
           .toList()
-          .where(
-              (element) => element.date == DateFormat.yMd().format(selectedDate))
+          .where((element) =>
+              element.date == DateFormat.yMd().format(selectedDate))
           .toList();
       emit(GetDateSuccessState());
     }).catchError((e) {
@@ -180,5 +181,17 @@ class TaskCubit extends Cubit<TaskState> {
       print(e.toString());
       emit(DeleteTaskErrorState());
     });
+  }
+
+  bool isDark = false;
+  void changeTheme() async {
+    isDark = !isDark;
+    await sl<CacheHelper>().saveData(key: 'isDark', value: isDark);
+    emit(ChangeThemeState());
+  }
+
+  void getTheme() async {
+    isDark = await sl<CacheHelper>().getData(key: 'isDark');
+    emit(GetThemeState());
   }
 }

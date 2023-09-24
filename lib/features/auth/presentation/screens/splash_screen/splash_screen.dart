@@ -30,7 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
           context,
           MaterialPageRoute(
               builder: (_) =>
-                  isVisited ? const HomeScreen() : OnBoardingScreen()));
+                  isVisited ? const HomeScreen() : const OnBoardingScreen()));
     });
   }
 
@@ -43,14 +43,8 @@ class _SplashScreenState extends State<SplashScreen> {
         children: [
           Image.asset(AppAsseets.logo),
           const SizedBox(height: 19),
-          Text(
-            AppStrings.appName,
-            style: GoogleFonts.lato(
-              color: AppColors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 40,
-            ),
-          ),
+          Text(AppStrings.appName,
+              style: Theme.of(context).textTheme.bodyLarge),
           const SizedBox(height: 19),
           Text(
             'By Muhammed Abdulrahman',

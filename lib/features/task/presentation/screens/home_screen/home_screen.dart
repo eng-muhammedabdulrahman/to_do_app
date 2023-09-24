@@ -29,9 +29,22 @@ class HomeScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // date now
-                  Text(
-                    DateFormat.yMMMMd().format(DateTime.now()),
-                    style: Theme.of(context).textTheme.displayLarge,
+                  Row(
+                    children: [
+                      Text(DateFormat.yMMMMd().format(DateTime.now()),
+                          style: Theme.of(context).textTheme.displayLarge),
+                      const Spacer(),
+                      IconButton(
+                          onPressed: () {
+                            BlocProvider.of<TaskCubit>(context).changeTheme();
+                          },
+                          icon: Icon(
+                            Icons.mode_night_sharp,
+                            color: BlocProvider.of<TaskCubit>(context).isDark
+                                ? AppColors.white
+                                : AppColors.background,
+                          ))
+                    ],
                   ),
                   SizedBox(
                     height: 12.h,
@@ -48,7 +61,7 @@ class HomeScreen extends StatelessWidget {
                     height: 94.h,
                     DateTime.now(),
                     initialSelectedDate: DateTime.now(),
-                    selectionColor: AppColors.selectDate,
+                    selectionColor: AppColors.primary,
                     selectedTextColor: AppColors.white,
                     dateTextStyle: Theme.of(context).textTheme.displayMedium!,
                     dayTextStyle: Theme.of(context).textTheme.displayMedium!,
