@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:to_do_app/core/utils/app_colors.dart';
 
 class AddTaskComponent extends StatelessWidget {
   const AddTaskComponent({
@@ -25,8 +24,9 @@ class AddTaskComponent extends StatelessWidget {
         style: Theme.of(context).textTheme.displayMedium,
       ),
       const SizedBox(height: 8),
+      
       TextFormField(
-        style: const TextStyle(color: AppColors.white),
+        style: const TextStyle(color: Colors.blueGrey),
         readOnly: readOnly,
         controller: controller,
         validator: validator,
