@@ -28,6 +28,7 @@ class HomeScreen extends StatelessWidget {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  
                   // date now
                   Row(
                     children: [
@@ -49,6 +50,7 @@ class HomeScreen extends StatelessWidget {
                   SizedBox(
                     height: 12.h,
                   ),
+                  
                   // Today
                   Text(
                     AppStrings.toDay,
@@ -73,6 +75,7 @@ class HomeScreen extends StatelessWidget {
                   SizedBox(
                     height: 50.h,
                   ),
+                  
                   // no tasks
                   BlocProvider.of<TaskCubit>(context).tasksList.isEmpty
                       ? noTasksWidget(context)
@@ -92,6 +95,7 @@ class HomeScreen extends StatelessWidget {
                                               height: 240.h,
                                               color: AppColors.deepGrey,
                                               child: Column(children: [
+                                                
                                                 // Task Completed
                                                 BlocProvider.of<TaskCubit>(
                                                                 context)
@@ -120,6 +124,7 @@ class HomeScreen extends StatelessWidget {
                                                           },
                                                         ),
                                                       ),
+                                                
                                                 // deleteTask
                                                 SizedBox(
                                                   height: 24.h,
@@ -144,6 +149,7 @@ class HomeScreen extends StatelessWidget {
                                                     },
                                                   ),
                                                 ),
+                                                
                                                 // Task cancel
                                                 SizedBox(
                                                   height: 24.h,
@@ -233,69 +239,71 @@ class TaskComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 128.h,
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: getColor(taskModel.color),
-        borderRadius: BorderRadius.circular(16),
-      ),
-      margin: const EdgeInsets.only(bottom: 16),
-      child: Row(children: [
-        // column
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // title
-              Text(
-                taskModel.title,
-                style: Theme.of(context).textTheme.labelLarge,
-              ),
-              SizedBox(height: 8.h),
-              // row
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  const Icon(
-                    Icons.timer_sharp,
-                    color: AppColors.white,
-                  ),
-                  SizedBox(
-                    width: 8.w,
-                  ),
-                  Text(
-                    '${taskModel.startTime} - ${taskModel.endTime}',
-                    style: Theme.of(context).textTheme.displayMedium,
-                  )
-                ],
-              ),
-              SizedBox(height: 8.h),
-              // note
-              Text(
-                taskModel.note,
-                style: Theme.of(context).textTheme.labelLarge,
-              ),
-            ],
+    return Flexible(
+      child: Container(
+        // height: 128.h,
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: getColor(taskModel.color),
+          borderRadius: BorderRadius.circular(16),
+        ),
+        margin: const EdgeInsets.only(bottom: 16),
+        child: Row(children: [
+          // column
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // title
+                Text(
+                  taskModel.title,
+                  style: Theme.of(context).textTheme.labelLarge,
+                ),
+                SizedBox(height: 8.h),
+                // row
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    const Icon(
+                      Icons.timer_sharp,
+                      color: AppColors.grey,
+                    ),
+                    SizedBox(
+                      width: 8.w,
+                    ),
+                    Text(
+                      '${taskModel.startTime} - ${taskModel.endTime}',
+                      style: Theme.of(context).textTheme.displayMedium,
+                    )
+                  ],
+                ),
+                SizedBox(height: 8.h),
+                // note
+                Text(
+                  taskModel.note,
+                  style: Theme.of(context).textTheme.labelLarge,
+                ),
+              ],
+            ),
           ),
-        ),
-        // divider
-        const VerticalDivider(
-          color: AppColors.line,
-          thickness: 1,
-          indent: 20,
-          endIndent: 20,
-        ),
-        // text
-        RotatedBox(
-            quarterTurns: 3,
-            child: Text(
-              taskModel.isCompleted == 1
-                  ? AppStrings.completed
-                  : AppStrings.toDo,
-              style: Theme.of(context).textTheme.displayMedium,
-            ))
-      ]),
+          // divider
+          const VerticalDivider(
+            color: AppColors.line,
+            thickness: 1,
+            indent: 20,
+            endIndent: 20,
+          ),
+          // text
+          RotatedBox(
+              quarterTurns: 3,
+              child: Text(
+                taskModel.isCompleted == 1
+                    ? AppStrings.completed
+                    : AppStrings.toDo,
+                style: Theme.of(context).textTheme.displayMedium,
+              ))
+        ]),
+      ),
     );
   }
 

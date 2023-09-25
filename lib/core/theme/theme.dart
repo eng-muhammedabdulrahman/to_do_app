@@ -22,22 +22,22 @@ ThemeData getAppDarkTheme() {
         displayLarge: GoogleFonts.lato(
           color: AppColors.white.withOpacity(.87),
           fontWeight: FontWeight.bold,
-          fontSize: 30.sp,
+          fontSize: 28.sp,
         ),
         displayMedium: GoogleFonts.lato(
           color: AppColors.white.withOpacity(.87),
           fontWeight: FontWeight.normal,
-          fontSize: 16.sp,
+          fontSize: 14.sp,
         ),
         labelLarge: GoogleFonts.lato(
             color: AppColors.white,
             fontWeight: FontWeight.w700,
-            fontSize: 24.sp,
+            fontSize: 20.sp,
             fontStyle: FontStyle.normal),
         displaySmall: GoogleFonts.lato(
           color: AppColors.white,
           fontWeight: FontWeight.w400,
-          fontSize: 16.sp,
+          fontSize: 14.sp,
         )),
     // button theme
     elevatedButtonTheme: ElevatedButtonThemeData(
@@ -60,7 +60,7 @@ ThemeData getAppDarkTheme() {
       hintStyle: GoogleFonts.lato(
         color: AppColors.white.withOpacity(.87),
         fontWeight: FontWeight.normal,
-        fontSize: 16.sp,
+        fontSize: 14.sp,
       ),
       // fill color
       fillColor: AppColors.lightBlack, filled: true,
@@ -88,22 +88,22 @@ ThemeData getAppTheme() {
         displayLarge: GoogleFonts.lato(
           color: AppColors.background.withOpacity(.87),
           fontWeight: FontWeight.bold,
-          fontSize: 30.sp,
+          fontSize: 28.sp,
         ),
         displayMedium: GoogleFonts.lato(
           color: AppColors.background.withOpacity(.87),
           fontWeight: FontWeight.normal,
-          fontSize: 16.sp,
+          fontSize: 14.sp,
         ),
         labelLarge: GoogleFonts.lato(
             color: AppColors.background,
             fontWeight: FontWeight.w700,
-            fontSize: 24.sp,
+            fontSize: 20.sp,
             fontStyle: FontStyle.normal),
         displaySmall: GoogleFonts.lato(
           color: AppColors.background,
           fontWeight: FontWeight.w400,
-          fontSize: 16.sp,
+          fontSize: 14.sp,
         )),
     // button theme
     elevatedButtonTheme: ElevatedButtonThemeData(
@@ -126,7 +126,7 @@ ThemeData getAppTheme() {
       hintStyle: GoogleFonts.lato(
         color: AppColors.background.withOpacity(.87),
         fontWeight: FontWeight.normal,
-        fontSize: 16.sp,
+        fontSize: 14.sp,
       ),
       // fill color
       fillColor: AppColors.white, filled: true,

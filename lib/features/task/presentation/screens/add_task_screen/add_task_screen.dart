@@ -87,7 +87,7 @@ class AddTaskScreen extends StatelessWidget {
                           cubit.getDate(context);
                         },
                         icon: const Icon(Icons.calendar_month_rounded),
-                        color: AppColors.white,
+                        color: AppColors.grey,
                       ),
                       readOnly: true,
                     ),
@@ -106,7 +106,7 @@ class AddTaskScreen extends StatelessWidget {
                                 cubit.getStartTime(context);
                               },
                               icon: const Icon(Icons.timer_outlined),
-                              color: AppColors.white,
+                              color: AppColors.grey,
                             ),
                           ),
                         ),
@@ -122,7 +122,7 @@ class AddTaskScreen extends StatelessWidget {
                                 cubit.geEndtTime(context);
                               },
                               icon: const Icon(Icons.timer_outlined),
-                              color: AppColors.white,
+                              color: AppColors.grey,
                             ),
                           ),
                         ),
